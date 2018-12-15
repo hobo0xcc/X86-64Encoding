@@ -1,0 +1,5 @@
+[book]
+authors = ["FrankyPython"]
+multilingual = false
+src = "src"
+title = "x86-64Encoding"
