@@ -87,8 +87,10 @@ ModR/Mで指定できるメモリアドレスの形式を以下に示します�
 
 <table>
 <tr align="center">
-    <th colspan=1>addr</th>
-    <th colspan=15>(REX.B).RM</th>
+    <thead>
+        <th colspan=1>addr</th>
+        <th colspan=15>(REX.B).RM</th>
+    </thead>
 </tr>
 <tr align="center">
     <th colspan=1>Mod</th>
