@@ -136,6 +136,6 @@ ModR/Mで指定できるメモリアドレスの形式を以下に示します�
 </tr>
 <tr align="center">
     <th colspan=1>11</th>
-    <td colspan=16>R/</td>
+    <td colspan=16>R/M</td>
 </tr>
 </table>
