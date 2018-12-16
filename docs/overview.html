@@ -200,10 +200,10 @@
 <a class="header" href="#modrm" id="modrm"><h1>ModR/M</h1></a>
 <p>ModR/MはMode register / memoryの略で、レジスタとメモリの形式を指定します。</p>
 <p>レジスタとメモリの形式というのは、例えば:</p>
-<pre><code class="language-asm">mov  [eax+1], 10
+<pre><code class="language-x86asm">mov  [eax+1], 10
 </code></pre>
 <p>このコードは、eaxに1を足したアドレスに10をムーブします。</p>
-<pre><code class="language-asm">mov eax, 10
+<pre><code class="language-x86asm">mov eax, 10
 </code></pre>
 <p>このコードはeaxに10をムーブします。</p>
 <p>これらのような2つのコードのレジスタやメモリアドレスの形式を指定するのがModR/Mの役割です。</p>

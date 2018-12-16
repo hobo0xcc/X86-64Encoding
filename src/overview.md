@@ -60,13 +60,13 @@ ModR/MはMode register / memoryの略で、レジスタとメモリの形式を�
 
 レジスタとメモリの形式というのは、例えば:
 
-```asm
+```x86asm
 mov  [eax+1], 10
 ```
 
 このコードは、eaxに1を足したアドレスに10をムーブします。
 
-```asm
+```x86asm
 mov eax, 10
 ```
 
