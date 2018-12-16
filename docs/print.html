@@ -199,11 +199,11 @@
 <p>REX prefixは、64bitのオペランドか、拡張レジスタを使用する場合などにつけられます。</p>
 <p>REX prefixは、最初の4bitが<code>0100</code>で始まり、残りの1bit * 4(4bit)でプリフィックスを表現します。最後の4bitは1bitずつ左からW, R, X, Bと呼ばれます。</p>
 <p>WRXBにはそれぞれ次のような意味があります。</p>
-<table><thead><tr><th align="center"> フィールド </th><th align="center"> 大きさ </th><th align="center">                                                     説明                                                      </th></tr></thead><tbody>
-<tr><td align="center">     W      </td><td align="center">  1bit  </td><td align="center"> この値が1の場合は64bitのオペランドサイズが使用されます。0の場合はデフォルトのオペランドサイズが使用されます。 </td></tr>
-<tr><td align="center">     R      </td><td align="center">  1bit  </td><td align="center">                拡張レジスタを使用する場合は1にします。0の場合は通常のレジスタが使用されます。                 </td></tr>
-<tr><td align="center">     X      </td><td align="center">  1bit  </td><td align="center">        SIBのbaseフィールドの拡張に使われます。1の場合はbaseで拡張レジスタを使用しての指定ができます。         </td></tr>
-<tr><td align="center">     B      </td><td align="center">  1bit  </td><td align="center">        ModR/Mのr/mフィールドの拡張に使われます。1の場合はr/mで拡張レジスタの使用しての指定ができます。        </td></tr>
+<table><thead><tr><th align="center"> Field </th><th align="center"> Length </th><th align="center">                                                  Description                                                  </th></tr></thead><tbody>
+<tr><td align="center">   W   </td><td align="center">  1bit  </td><td align="center"> この値が1の場合は64bitのオペランドサイズが使用されます。0の場合はデフォルトのオペランドサイズが使用されます。 </td></tr>
+<tr><td align="center">   R   </td><td align="center">  1bit  </td><td align="center">                拡張レジスタを使用する場合は1にします。0の場合は通常のレジスタが使用されます。                 </td></tr>
+<tr><td align="center">   X   </td><td align="center">  1bit  </td><td align="center">        SIBのbaseフィールドの拡張に使われます。1の場合はbaseで拡張レジスタを使用しての指定ができます。         </td></tr>
+<tr><td align="center">   B   </td><td align="center">  1bit  </td><td align="center">        ModR/Mのr/mフィールドの拡張に使われます。1の場合はr/mで拡張レジスタの使用しての指定ができます。        </td></tr>
 </tbody></table>
 <a class="header" href="#opcode" id="opcode"><h1>Opcode</h1></a>
 <a class="header" href="#a参考資料" id="a参考資料"><h1>参考資料</h1></a>
