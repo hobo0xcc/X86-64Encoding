@@ -197,7 +197,78 @@
 <a class="header" href="#opcode" id="opcode"><h1>Opcode</h1></a>
 <p>Opcodeは、命令を識別します。</p>
 <p><a href="https://software.intel.com/en-us/articles/intel-sdm">Intelのマニュアル</a>に命令ごとのOpcodeの一覧が載っているので、これを参考にするか、あるいはndisasmやobjdumpなどの逆アセンブラを参考にするのが良いでしょう。</p>
-
+<a class="header" href="#modrm" id="modrm"><h1>ModR/M</h1></a>
+<p>ModR/MはMode register / memoryの略で、レジスタとメモリの形式を指定します。</p>
+<p>レジスタとメモリの形式というのは、例えば:</p>
+<pre><code class="language-nasm">mov  [eax+1], 10
+</code></pre>
+<p>このコードは、eaxに1を足したアドレスに10をムーブします。</p>
+<pre><code class="language-nasm">mov eax, 10
+</code></pre>
+<p>このコードはeaxに10をムーブします。</p>
+<p>これらのような2つのコードのレジスタやメモリアドレスの形式を指定するのがModR/Mの役割です。</p>
+<p>ModR/Mには3つのフィールドがあります。
+以下にその3つのフィールドとその説明を示します。</p>
+<table><thead><tr><th> Field </th><th> Length </th><th>                                              Description                                              </th></tr></thead><tbody>
+<tr><td> Mod   </td><td> 2bit   </td><td> メモリアドレスの形式を指定します。                                                                    </td></tr>
+<tr><td> Reg   </td><td> 3bit   </td><td> 2つのオペランドがどちらも直接、または間接的にレジスタを使用している場合に右側のレジスタを指定します。 </td></tr>
+<tr><td> RM    </td><td> 3bit   </td><td> レジスタオペランドを指定します。これはメモリアドレスの形式に影響します。                              </td></tr>
+</tbody></table>
+<p>ModR/Mで指定できるメモリアドレスの形式を以下に示します。</p>
+<table>
+<tr align="center">
+    <th colspan=1>addr</th>
+    <th>(REX.B).RM
+</tr>
+<tr align="center">
+    <th colspan=1>Mod</th>
+    <th>0.000<br>AX</th>
+    <th>0.001<br>CX</th>
+    <th>0.010<br>DX</th>
+    <th>0.011<br>BX</th>
+    <th>0.100<br>SP</th>
+    <th>0.101<br>BP</th>
+    <th>0.110<br>SI</th>
+    <th>0.111<br>DI</th>
+    <th>1.000<br>R8</th>
+    <th>1.001<br>R9</th>
+    <th>1.010<br>R10</th>
+    <th>1.011<br>R11</th>
+    <th>1.100<br>R12</th>
+    <th>1.101<br>R13</th>
+    <th>1.110<br>R14</th>
+    <th>1.111<br>R15</th>
+</tr>
+<tr align="center">
+    <th colspan=1>00</th>
+    <td colspan=4>[R/M]</td>
+    <td colspan=1>[SIB]</td>
+    <td colspan=1>[RIP/EIP+disp32]</td>
+    <td colspan=6>[R/M]</td>
+    <td colspan=1>[SIB]</td>
+    <td colspan=1>[RIP/EIP+disp32]</td>
+    <td colspan=2>[R/M]</td>
+</tr>
+<tr>
+    <th colspan=1>01</th>
+    <td colspan=4>[R/M+disp8]</td>
+    <td colspan=1>[SIB+disp8]</td>
+    <td colspan=7>[R/M+disp8]</td>
+    <td colspan=1>[SIB+disp8]</td>
+    <td colspan=3>[R/M+disp8]</td>
+<tr>
+    <th colspan=1>10</th>
+    <td colspan=4>[R/M+disp32]</td>
+    <td colspan=1>[SIB+disp32]</td>
+    <td colspan=7>[R/M+disp32]</td>
+    <td colspan=1>[SIB+disp32]</td>
+    <td colspan=3>[R/M+disp32]</td>
+</tr>
+<tr>
+    <th colspan=1>11</th>
+    <td colspan=16>R/</td>
+</tr>
+</table>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
