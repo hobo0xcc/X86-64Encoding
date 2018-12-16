@@ -119,14 +119,14 @@ ModR/Mで指定できるメモリアドレスの形式を以下に示します�
     <td colspan=1>[RIP/EIP+disp32]</td>
     <td colspan=2>[R/M]</td>
 </tr>
-<tr>
+<tr align="center">
     <th colspan=1>01</th>
     <td colspan=4>[R/M+disp8]</td>
     <td colspan=1>[SIB+disp8]</td>
     <td colspan=7>[R/M+disp8]</td>
     <td colspan=1>[SIB+disp8]</td>
     <td colspan=3>[R/M+disp8]</td>
-<tr>
+<tr align="center">
     <th colspan=1>10</th>
     <td colspan=4>[R/M+disp32]</td>
     <td colspan=1>[SIB+disp32]</td>
@@ -134,7 +134,7 @@ ModR/Mで指定できるメモリアドレスの形式を以下に示します�
     <td colspan=1>[SIB+disp32]</td>
     <td colspan=3>[R/M+disp32]</td>
 </tr>
-<tr>
+<tr align="center">
     <th colspan=1>11</th>
     <td colspan=16>R/</td>
 </tr>
