@@ -9,3 +9,32 @@ x86-64の命令は、基本的に以下のような並びになります。
 - SIB (0 - 1byte)
 - Displacement (0 - 1byte)
 - Immediate(0, 1, 2, 4, 8byte)
+
+## Legacy prefix
+各命令には、最大4つのプリフィックスをつけることができます。
+4つのグループがあり、1つのグループにつき1つ使うことができます。
+
+使えるプリフィックスを以下に示します。
+
+- Prefix group 1
+    - 0xF0
+    - 0xF2
+    - 0xF3
+- Prefix group 2
+    - 0x2E
+    - 0x36
+    - 0x3E
+    - 0x26
+    - 0x64
+    - 0x65
+    - 0x2E
+    - 0x3E
+- Prefix group 3
+    - 0x66
+- Prefix group 4
+    - 0x67
+
+それぞれに意味がありますが、よく使うのは0x66と0x67くらいです。
+
+# REX prefix
+REX prefixは、64bitのオペランドか、拡張レジスタを使用する場合などにつけられます。

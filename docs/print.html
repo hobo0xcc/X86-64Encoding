@@ -158,6 +158,44 @@
 <li>Displacement (0 - 1byte)</li>
 <li>Immediate(0, 1, 2, 4, 8byte)</li>
 </ul>
+<a class="header" href="#legacy-prefix" id="legacy-prefix"><h2>Legacy prefix</h2></a>
+<p>各命令には、最大4つのプリフィックスをつけることができます。
+4つのグループがあり、1つのグループにつき1つ使うことができます。</p>
+<p>使えるプリフィックスを以下に示します。</p>
+<ul>
+<li>Prefix group 1
+<ul>
+<li>0xF0</li>
+<li>0xF2</li>
+<li>0xF3</li>
+</ul>
+</li>
+<li>Prefix group 2
+<ul>
+<li>0x2E</li>
+<li>0x36</li>
+<li>0x3E</li>
+<li>0x26</li>
+<li>0x64</li>
+<li>0x65</li>
+<li>0x2E</li>
+<li>0x3E</li>
+</ul>
+</li>
+<li>Prefix group 3
+<ul>
+<li>0x66</li>
+</ul>
+</li>
+<li>Prefix group 4
+<ul>
+<li>0x67</li>
+</ul>
+</li>
+</ul>
+<p>それぞれに意味がありますが、よく使うのは0x66と0x67くらいです。</p>
+<a class="header" href="#rex-prefix" id="rex-prefix"><h1>REX prefix</h1></a>
+<p>REX prefixは、64bitのオペランドか、拡張レジスタを使用する場合などにつけられます。</p>
 <a class="header" href="#a参考資料" id="a参考資料"><h1>参考資料</h1></a>
 <p>この本を書く上で参考にした資料です。</p>
 <ul>
