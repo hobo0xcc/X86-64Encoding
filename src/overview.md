@@ -51,3 +51,6 @@ WRXBにはそれぞれ次のような意味があります。
 |   B   |  1bit  |        ModR/Mのr/mフィールドの拡張に使われます。1の場合はr/mで拡張レジスタの使用しての指定ができます。        |
 
 # Opcode
+Opcodeは、命令を識別します。
+
+[Intelのマニュアル](https://software.intel.com/en-us/articles/intel-sdm)に命令ごとのOpcodeの一覧が載っているので、これを参考にするか、あるいはndisasmやobjdumpなどの逆アセンブラを参考にするのが良いでしょう。
