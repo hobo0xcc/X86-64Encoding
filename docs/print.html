@@ -151,13 +151,13 @@
 <p>x86-64の命令は、基本的に以下のような並びになります。
 命令やオペランドによって値が存在しない(0byte)場合があります。</p>
 <ul>
-<li>Legacy prefix (0 - 4byte)</li>
-<li>REX prefix (0 - 1byte)</li>
-<li>Opcode (1 - 3byte)</li>
-<li>ModR/M (0 - 1byte)</li>
-<li>SIB (0 - 1byte)</li>
-<li>Displacement (0 - 1byte)</li>
-<li>Immediate(0, 1, 2, 4, 8byte)</li>
+<li><a href="#legacy-prefix">Legacy prefix</a> (0 - 4byte)</li>
+<li><a href="#rex-prefix">REX prefix</a> (0 - 1byte)</li>
+<li><a href="#opcode">Opcode</a> (1 - 3byte)</li>
+<li><a href="#modrm">ModR/M</a> (0 - 1byte)</li>
+<li><a href="#sib">SIB</a> (0 - 1byte)</li>
+<li><a href="#displacement">Displacement</a> (0 - 1byte)</li>
+<li><a href="#immediate">Immediate</a> (0, 1, 2, 4, 8byte)</li>
 </ul>
 <a class="header" href="#legacy-prefix" id="legacy-prefix"><h1>Legacy prefix</h1></a>
 <p>各命令には、最大4つのプリフィックスをつけることができます。

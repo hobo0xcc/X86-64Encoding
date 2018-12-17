@@ -2,13 +2,13 @@
 x86-64の命令は、基本的に以下のような並びになります。
 命令やオペランドによって値が存在しない(0byte)場合があります。
 
-- Legacy prefix (0 - 4byte)
-- REX prefix (0 - 1byte)
-- Opcode (1 - 3byte)
-- ModR/M (0 - 1byte)
-- SIB (0 - 1byte)
-- Displacement (0 - 1byte)
-- Immediate(0, 1, 2, 4, 8byte)
+- [Legacy prefix](#legacy-prefix) (0 - 4byte)
+- [REX prefix](#rex-prefix) (0 - 1byte)
+- [Opcode](#opcode) (1 - 3byte)
+- [ModR/M](#modrm) (0 - 1byte)
+- [SIB](#sib) (0 - 1byte)
+- [Displacement](#displacement) (0 - 1byte)
+- [Immediate](#immediate) (0, 1, 2, 4, 8byte)
 
 # Legacy prefix
 各命令には、最大4つのプリフィックスをつけることができます。
