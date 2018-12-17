@@ -10,7 +10,7 @@ x86-64の命令は、基本的に以下のような並びになります。
 - Displacement (0 - 1byte)
 - Immediate(0, 1, 2, 4, 8byte)
 
-## Legacy prefix
+# Legacy prefix
 各命令には、最大4つのプリフィックスをつけることができます。
 4つのグループがあり、1つのグループにつき1つ使うことができます。
 
@@ -77,11 +77,13 @@ mov eax, 10
 ModR/Mには3つのフィールドがあります。
 以下にその3つのフィールドとその説明を示します。
 
-| Field | Length |                                              Description                                              |
-| ----- | ------ | ----------------------------------------------------------------------------------------------------- |
-| Mod   | 2bit   | メモリアドレスの形式を指定します。                                                                    |
-| Reg   | 3bit   | 2つのオペランドがどちらも直接、または間接的にレジスタを使用している場合に右側のレジスタを指定します。 |
-| RM    | 3bit   | レジスタオペランドを指定します。これはメモリアドレスの形式に影響します。                              |
+| Field | Length |                                      Description                                      |
+| ----- | ------ | ------------------------------------------------------------------------------------- |
+| Mod   | 2bit   | メモリアドレスの形式を指定します。                                                    |
+| Reg   | 3bit   | 2つのオペランドがどちらも直接、または間接的にレジスタを使用している場合に使用します。 |
+| R/M   | 3bit   | レジスタオペランドを指定します。これはメモリアドレスの形式に影響します。              |
+
+レジスタの指定に使う3bitの番号は、[レジスタ](./register.md)を参照してください。
 
 ModR/Mで指定できるメモリアドレスの形式を以下に示します。
 
@@ -89,7 +91,7 @@ ModR/Mで指定できるメモリアドレスの形式を以下に示します�
 <tr align="center">
     <thead>
         <th colspan=1>addr</th>
-        <th colspan=16>(REX.B).RM</th>
+        <th colspan=16>(REX.B).R/M</th>
     </thead>
 </tr>
 <tr align="center">
@@ -140,4 +142,135 @@ ModR/Mで指定できるメモリアドレスの形式を以下に示します�
     <th colspan=1>11</th>
     <td colspan=16>R/M</td>
 </tr>
+</table>
+
+# SIB
+SIBは、Scale Index Baseの略で、メモリアドレスの形式を更に詳しく指定できます。
+SIBには3つフィールドがあります。以下にそれらを示します。
+
+| Field | Length |                                Description                                 |
+| ----- | ------ | -------------------------------------------------------------------------- |
+| Scale | 2bit   | Indexの倍率が示されます。 `00`で1, `01`で2, `10`で4, `11`で8倍になります。 |
+| Index | 3bit   | Indexのレジスタを指定します。この値はメモリアドレスの形式に影響します。    |
+| Base  | 3bit   | Baseのレジスタを指定します。この値はメモリアドレスの形式に影響します。     |
+
+<table>
+<tr align="center">
+    <thead>
+        <th colspan=2></th>
+        <th colspan=16>(REX.B).Base</th>
+    </thead>
+</tr>
+<tr align="center">
+    <th colspan=1>Mod</th>
+    <th colspan=1>(REX.X).Index</th>
+    <th>0.000<br>AX</th>
+    <th>0.001<br>CX</th>
+    <th>0.010<br>DX</th>
+    <th>0.011<br>BX</th>
+    <th>0.100<br>SP</th>
+    <th>0.101<br>BP</th>
+    <th>0.110<br>SI</th>
+    <th>0.111<br>DI</th>
+    <th>1.000<br>R8</th>
+    <th>1.001<br>R9</th>
+    <th>1.010<br>R10</th>
+    <th>1.011<br>R11</th>
+    <th>1.100<br>R12</th>
+    <th>1.101<br>R13</th>
+    <th>1.110<br>R14</th>
+    <th>1.111<br>R15</th>
+</tr>
+<tr align="center">
+    <th rowspan=16 colspan=1>00</th>
+    <th>0.000<br>AX</th>
+    <td rowspan=4 colspan=5>[Base+(Index*Scale)]</td>
+    <td rowspan=4 colspan=1>[(Index*Scale)+disp32]
+    <td rowspan=4 colspan=7>[Base+(Index*Scale)]</td>
+    <td rowspan=4 colspan=1>[(Index*Scale)+disp32]</td>
+    <td rowspan=4 colspan=2>[Base+(Index*Scale)]</td>
+</tr>
+<tr align="center"><th>0.001<br>CX</th></tr>
+<tr align="center"><th>0.010<br>DX</th></tr>
+<tr align="center"><th>0.011<br>BX</th></tr>
+<tr align="center">
+    <th>0.100<br>SP</th>
+    <td colspan=5>[Base]</td>
+    <td colspan=1>[Disp32]</td>
+    <td colspan=7>[Base]</td>
+    <td>[Disp32]</td>
+    <td colspan=2>[Base]</td>
+</tr>
+<tr align="center">
+    <th>0.101<br>BP</th>
+    <td rowspan=11 colspan=5>[Base+(Index*Scale)]</td>
+    <td rowspan=11 colspan=1>[(Index*Scale) + Disp32]</td>
+    <td rowspan=11 colspan=7>[Base+(Index*Scale)]</td>
+    <td rowspan=11 colspan=1>[(Index*Scale)+Disp32]</td>
+    <td rowspan=11 colspan=2>[Base+(Index*Scale)]</td>
+</tr>
+<tr align="center"><th>0.110<br>SI</th></tr>
+<tr align="center"><th>0.111<br>DI</th></tr>
+<tr align="center"><th>1.000<br>R8</th></tr>
+<tr align="center"><th>1.001<br>R9</th></tr>
+<tr align="center"><th>1.010<br>R10</th></tr>
+<tr align="center"><th>1.011<br>R11</th></tr>
+<tr align="center"><th>1.100<br>R12</th></tr>
+<tr align="center"><th>1.101<br>R13</th></tr>
+<tr align="center"><th>1.110<br>R14</th></tr>
+<tr align="center"><th>1.111<br>R15</th></tr>
+
+<tr align="center">
+    <th rowspan=16 colspan=1>01</th>
+    <th>0.000<br>AX</th>
+    <td rowspan=4 colspan=16>[Base+(Index*Scale)+Disp8]</td>
+</tr>
+<tr align="center"><th>0.001<br>CX</th></tr>
+<tr align="center"><th>0.010<br>DX</th></tr>
+<tr align="center"><th>0.011<br>BX</th></tr>
+<tr align="center">
+    <th>0.100<br>SP</th>
+    <td colspan=16>[Base+Disp8]</th>
+</tr>
+<tr align="center">
+    <th>0.101<br>BP</th>
+    <td rowspan=11 colspan=16>[Base+(Index*Scale)+Disp8]</td>
+</tr>
+<tr align="center"><th>0.110<br>SI</th></tr>
+<tr align="center"><th>0.111<br>DI</th></tr>
+<tr align="center"><th>1.000<br>R8</th></tr>
+<tr align="center"><th>1.001<br>R9</th></tr>
+<tr align="center"><th>1.010<br>R10</th></tr>
+<tr align="center"><th>1.011<br>R11</th></tr>
+<tr align="center"><th>1.100<br>R12</th></tr>
+<tr align="center"><th>1.101<br>R13</th></tr>
+<tr align="center"><th>1.110<br>R14</th></tr>
+<tr align="center"><th>1.111<br>R15</th></tr>
+
+<tr align="center">
+    <th rowspan=16 colspan=1>10</th>
+    <th>0.000<br>AX</th>
+    <td rowspan=4 colspan=16>[Base+(Index*Scale)+Disp32]</td>
+</tr>
+<tr align="center"><th>0.001<br>CX</th></tr>
+<tr align="center"><th>0.010<br>DX</th></tr>
+<tr align="center"><th>0.011<br>BX</th></tr>
+<tr align="center">
+    <th>0.100<br>SP</th>
+    <td colspan=16>[Base+Disp32]</td>
+</tr>
+<tr align="center">
+    <th>0.101<br>BP</th>
+    <td rowspan=11 colspan=16>[Base+(Index*Scale)+Disp32]</td>
+</tr>
+<tr align="center"><th>0.110<br>SI</th></tr>
+<tr align="center"><th>0.111<br>DI</th></tr>
+<tr align="center"><th>1.000<br>R8</th></tr>
+<tr align="center"><th>1.001<br>R9</th></tr>
+<tr align="center"><th>1.010<br>R10</th></tr>
+<tr align="center"><th>1.011<br>R11</th></tr>
+<tr align="center"><th>1.100<br>R12</th></tr>
+<tr align="center"><th>1.101<br>R13</th></tr>
+<tr align="center"><th>1.110<br>R14</th></tr>
+<tr align="center"><th>1.111<br>R15</th></tr>
 </table>
