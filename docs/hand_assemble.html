@@ -158,7 +158,17 @@ dは32bitのことなので、32bitの即値です。</p>
 <p>機械語は<code>B80A000000</code>となります。</p>
 <p>この機械語をバイナリエディタに入力して逆アセンブラ(64bit)に読み込ませると先程のコードがでてくるはずです。
 ndisasmは<code>-b 64</code>という引数を与えないと64bitにならないので注意してください。</p>
-<p>(これは書きかけです)</p>
+<p>次は以下のコードをアセンブルしてみましょう。</p>
+<pre><code class="language-x86asm">add  dword [rbp-16], eax
+</code></pre>
+<p>これは<code>add r/m32, r32</code>となり、オペコードは<code>01 /r</code>となっています。
+/rはModR/Mが続き、RegとR/Mフィールドを両方使用することを表しています。</p>
+<p>ModR/Mは、R/Mフィールドがrbpの番号<code>101</code>となり、Disp8があるので、Modが<code>[R/M+Disp8]</code>を表す<code>01</code>となり、r32がeaxなので、Regがeaxの番号<code>000</code>となります。</p>
+<p>このコードのModR/Mは<code>01000101</code>、16進数で<code>45</code>となります。</p>
+<p>そして、Disp8が<code>-16</code>なので、Displacementが16進数の<code>F0</code>になります。</p>
+<p>機械語は<code>0145F0</code>になります。</p>
+<p>アセンブラも実行する順番は変わりますが、これと同じような感じで機械語を生成しています。</p>
+<p>個人的には、このハンドアセンブルは映画にでてくるような凄腕ハッカー感があって楽しいです。</p>
 
                     </main>
 
