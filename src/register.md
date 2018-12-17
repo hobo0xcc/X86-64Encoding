@@ -3,6 +3,7 @@
 
 <table>
 <tr align="center">
+    <th colspan=1></th>
     <th>8bit</th>
     <th>16bit</th>
     <th>32bit</th>
