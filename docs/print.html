@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="introduction.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="about_x8664.html"><strong aria-hidden="true">2.</strong> x86-64について</a></li><li><ol class="section"><li><a href="overview.html"><strong aria-hidden="true">2.1.</strong> 概要</a></li><li><a href="register.html"><strong aria-hidden="true">2.2.</strong> レジスタ</a></li></ol></li><li><a href="reference.html"><strong aria-hidden="true">3.</strong> 参考資料</a></li></ol>
+            <ol class="chapter"><li><a href="introduction.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="about_x8664.html"><strong aria-hidden="true">2.</strong> x86-64について</a></li><li><ol class="section"><li><a href="overview.html"><strong aria-hidden="true">2.1.</strong> 概要</a></li><li><a href="register.html"><strong aria-hidden="true">2.2.</strong> レジスタ</a></li><li><a href="hand_assemble.html"><strong aria-hidden="true">2.3.</strong> ハンドアセンブル</a></li></ol></li><li><a href="reference.html"><strong aria-hidden="true">3.</strong> 参考資料</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -544,7 +544,30 @@ SIBには3つフィールドがあります。以下にそれらを示します�
     <td>R15D</td>
     <td>R15</td>
 </tr>
-</table><a class="header" href="#a参考資料" id="a参考資料"><h1>参考資料</h1></a>
+</table><a class="header" href="#aハンドアセンブル" id="aハンドアセンブル"><h1>ハンドアセンブル</h1></a>
+<p>ここまででx86-64の構造を大体把握できたと思うので、実際にハンドアセンブルをしてみましょう!
+ハンドアセンブルというのは、人間がアセンブリを機械語にすることです。
+1960〜1970年代頃には、実際にハンドアセンブルが行われていたそうです。</p>
+<p>機械語の仕組みを把握していればさほど難しいことではないので、早速やってみましょう。</p>
+<pre><code class="language-x86asm">mov  eax, 10
+</code></pre>
+<p>このコードを機械語にします。</p>
+<p>このコードのオペランドは、<code>r32, imm32</code>と解釈することができます。
+r32は32bitのレジスタで、imm32は32bitの即値です。</p>
+<p>インテルのマニュアルでmov命令を探してみてください。
+マニュアルのA.2.5にオペコードのマップが載っているので、それを見るのも良いでしょう。
+mov命令の<code>r32, imm32</code>のオペコードを見てみると、<code>B8+rd id</code>とあります。</p>
+<p><code>+rd</code>というのは、32bitの<a href="./register">レジスタ番号</a>を左側のオペコードに加算することを表しています。</p>
+<p>b, w, d, oが左から8bit, 16bit, 32bit, 64bitを表しています。</p>
+<p>次の<code>id</code>というのは即値を表しています。
+dは32bitのことなので、32bitの即値です。</p>
+<p>つまり、このコードの機械語にすると、<code>B8+レジスタ番号(32bit) 即値(32bit)</code>という並びになります。</p>
+<p>eaxの番号は<code>000</code>なので、<code>B8</code>、10は16進数で<code>0A</code>となり、即値は32bitなので<code>0A000000</code>。</p>
+<p>機械語は<code>B80A000000</code>となります。</p>
+<p>この機械語をバイナリエディタに入力して逆アセンブラ(64bit)に読み込ませると先程のコードがでてくるはずです。
+ndisasmは<code>-b 64</code>という引数を与えないと64bitにならないので注意してください。</p>
+<p>(これは書きかけです)</p>
+<a class="header" href="#a参考資料" id="a参考資料"><h1>参考資料</h1></a>
 <p>この本を書く上で参考にした資料です。</p>
 <ul>
 <li><a href="https://wiki.osdev.org/X86-64_Instruction_Encoding">X86-64 Instruction Encoding - OSDev</a></li>
