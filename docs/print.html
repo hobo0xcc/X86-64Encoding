@@ -409,7 +409,20 @@ SIBには3つフィールドがあります。以下にそれらを示します�
 <tr align="center"><th>1.101<br>R13</th></tr>
 <tr align="center"><th>1.110<br>R14</th></tr>
 <tr align="center"><th>1.111<br>R15</th></tr>
-</table><a class="header" href="#aレジスタ" id="aレジスタ"><h1>レジスタ</h1></a>
+</table>
+<a class="header" href="#displacement" id="displacement"><h1>Displacement</h1></a>
+<p>DispはDisplacementの略です。</p>
+<p>Displacementは、メモリアドレスに足される値のことです。</p>
+<pre><code class="language-x86asm">mov  dword [rbp-16], 10
+</code></pre>
+<p>このコードの場合、rbpの右側の-16がDisplacementになります。</p>
+<a class="header" href="#immediate" id="immediate"><h1>Immediate</h1></a>
+<p>ImmはImmediateの略です。</p>
+<p>Immediateはレジスタやメモリに直接演算される値です。</p>
+<pre><code class="language-x86asm">mov  eax, 42
+</code></pre>
+<p>このコードの場合、42がImmediateになります。</p>
+<a class="header" href="#aレジスタ" id="aレジスタ"><h1>レジスタ</h1></a>
 <a class="header" href="#a参考資料" id="a参考資料"><h1>参考資料</h1></a>
 <p>この本を書く上で参考にした資料です。</p>
 <ul>

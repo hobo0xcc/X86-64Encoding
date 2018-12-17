@@ -276,3 +276,26 @@ SIBには3つフィールドがあります。以下にそれらを示します�
 <tr align="center"><th>1.110<br>R14</th></tr>
 <tr align="center"><th>1.111<br>R15</th></tr>
 </table>
+
+# Displacement
+DispはDisplacementの略です。
+
+Displacementは、メモリアドレスに足される値のことです。
+
+```x86asm
+mov  dword [rbp-16], 10
+```
+
+このコードの場合、rbpの右側の-16がDisplacementになります。
+
+# Immediate
+
+ImmはImmediateの略です。
+
+Immediateはレジスタやメモリに直接演算される値です。
+
+```x86asm
+mov  eax, 42
+```
+
+このコードの場合、42がImmediateになります。
