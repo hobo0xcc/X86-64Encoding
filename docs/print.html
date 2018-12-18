@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="introduction.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="about_x8664.html"><strong aria-hidden="true">2.</strong> x86-64について</a></li><li><ol class="section"><li><a href="overview.html"><strong aria-hidden="true">2.1.</strong> 概要</a></li><li><a href="register.html"><strong aria-hidden="true">2.2.</strong> レジスタ</a></li><li><a href="hand_assemble.html"><strong aria-hidden="true">2.3.</strong> ハンドアセンブル</a></li></ol></li><li><a href="reference.html"><strong aria-hidden="true">3.</strong> 参考資料</a></li></ol>
+            <ol class="chapter"><li><a href="introduction.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="about_x8664.html"><strong aria-hidden="true">2.</strong> x86-64について</a></li><li><ol class="section"><li><a href="overview.html"><strong aria-hidden="true">2.1.</strong> 概要</a></li><li><a href="register.html"><strong aria-hidden="true">2.2.</strong> レジスタ</a></li><li><a href="hand_assemble.html"><strong aria-hidden="true">2.3.</strong> ハンドアセンブル</a></li></ol></li><li><a href="create_assembler.html"><strong aria-hidden="true">3.</strong> アセンブラを作る</a></li><li><ol class="section"><li><a href="front_end.html"><strong aria-hidden="true">3.1.</strong> フロントエンド</a></li><li><ol class="section"><li><a href="lexing.html"><strong aria-hidden="true">3.1.1.</strong> 字句解析</a></li><li><a href="parsing.html"><strong aria-hidden="true">3.1.2.</strong> 構文解析</a></li></ol></li></ol></li><li><a href="reference.html"><strong aria-hidden="true">4.</strong> 参考資料</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -576,6 +576,53 @@ ndisasmは<code>-b 64</code>という引数を与えないと64bitにならな�
 <p>そして、Disp8が<code>-16</code>なので、Displacementが16進数の<code>F0</code>になります。</p>
 <p>機械語は<code>0145F0</code>になります。</p>
 <p>アセンブラも実行する順番は変わりますが、これと同じような感じで機械語を生成しています。</p>
+<a class="header" href="#aアセンブラを作る" id="aアセンブラを作る"><h1>アセンブラを作る</h1></a>
+<p>アセンブラを作るには、言語処理系のフロントエンドの知識が必要になってくるので、それも含めてやっていきます。</p>
+<p>この本ではC言語で実装します。</p>
+<p>アセンブリの文法は比較的簡単なので、この本で作るアセンブラは字句解析しか行いませんが、複雑な文法にも対応できるよう、構文解析の方法も解説します。</p>
+<a class="header" href="#aフロントエンド" id="aフロントエンド"><h1>フロントエンド</h1></a>
+<p>言語処理系のフロントエンドには、字句解析と構文解析があります。</p>
+<p>字句解析は、文字列をトークン化します。</p>
+<p>構文解析は、トークン列を解析して抽象構文木を作り出します。</p>
+<p>多くの処理系では、抽象構文木の意味を解析してタグ付けをしたりする意味解析も行われますが、ここでは解説しません。</p>
+<a class="header" href="#a字句解析" id="a字句解析"><h1>字句解析</h1></a>
+<p>字句解析器を作成していきます。</p>
+<p>字句解析にはオートマトンを用います。</p>
+<p>これは説明するより実装したほうが早いと思うので、簡単な字句解析器を以下に示します。</p>
+<pre><code class="language-c:lexer.c">#define TK_MAX 256
+
+static char *p = &quot;abc 123 de45fg&quot;;
+static char *token;
+
+int next() {
+    int c;
+    char tk[TK_MAX];
+    int tkc = 0;
+
+    while (c = *p) {
+        ++p;
+
+        if (c &gt;= '0' &amp;&amp; c &lt;= '9') {
+            tk[tkc++] = c;
+            while (*p &gt;= '0' &amp;&amp; *p &lt;= '9') tk[tkc++] = *p++;
+            tk[tkc++] = '\0';
+            
+            token = tk;
+            return 1;
+        } else if ((c &gt;= 'a' &amp;&amp; c &lt;= 'z') || (c &gt;= 'A' &amp;&amp; c &lt;= 'Z')) {
+            tk[tkc++] = c;
+            while ((c &gt;= 'a' &amp;&amp; c &lt;= 'z') || (c &gt;= 'A' &amp;&amp; c &lt;= 'Z')) tk[tkc++] = *p++;
+            tk[tkc++] = '\0';
+
+            token = tk;
+            return 1;
+        }
+    }
+
+    return 0;
+}
+</code></pre>
+<a class="header" href="#a構文解析" id="a構文解析"><h1>構文解析</h1></a>
 <a class="header" href="#a参考資料" id="a参考資料"><h1>参考資料</h1></a>
 <p>この本を書く上で参考にした資料です。</p>
 <ul>

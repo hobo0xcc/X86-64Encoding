@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>はじめに - x86-64Encoding</title>
+        <title>フロントエンド - x86-64Encoding</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="introduction.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="about_x8664.html"><strong aria-hidden="true">2.</strong> x86-64について</a></li><li><ol class="section"><li><a href="overview.html"><strong aria-hidden="true">2.1.</strong> 概要</a></li><li><a href="register.html"><strong aria-hidden="true">2.2.</strong> レジスタ</a></li><li><a href="hand_assemble.html"><strong aria-hidden="true">2.3.</strong> ハンドアセンブル</a></li></ol></li><li><a href="create_assembler.html"><strong aria-hidden="true">3.</strong> アセンブラを作る</a></li><li><ol class="section"><li><a href="front_end.html"><strong aria-hidden="true">3.1.</strong> フロントエンド</a></li><li><ol class="section"><li><a href="lexing.html"><strong aria-hidden="true">3.1.1.</strong> 字句解析</a></li><li><a href="parsing.html"><strong aria-hidden="true">3.1.2.</strong> 構文解析</a></li></ol></li></ol></li><li><a href="reference.html"><strong aria-hidden="true">4.</strong> 参考資料</a></li></ol>
+            <ol class="chapter"><li><a href="introduction.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="about_x8664.html"><strong aria-hidden="true">2.</strong> x86-64について</a></li><li><ol class="section"><li><a href="overview.html"><strong aria-hidden="true">2.1.</strong> 概要</a></li><li><a href="register.html"><strong aria-hidden="true">2.2.</strong> レジスタ</a></li><li><a href="hand_assemble.html"><strong aria-hidden="true">2.3.</strong> ハンドアセンブル</a></li></ol></li><li><a href="create_assembler.html"><strong aria-hidden="true">3.</strong> アセンブラを作る</a></li><li><ol class="section"><li><a href="front_end.html" class="active"><strong aria-hidden="true">3.1.</strong> フロントエンド</a></li><li><ol class="section"><li><a href="lexing.html"><strong aria-hidden="true">3.1.1.</strong> 字句解析</a></li><li><a href="parsing.html"><strong aria-hidden="true">3.1.2.</strong> 構文解析</a></li></ol></li></ol></li><li><a href="reference.html"><strong aria-hidden="true">4.</strong> 参考資料</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -136,22 +136,26 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#aはじめに" id="aはじめに"><h1>はじめに</h1></a>
-<p>この本は、x86-64のエンコーディングの方法を、アセンブラを自作しながら学んでいくという、かなり特殊なものになっています。</p>
-<p>x86-64というのは、命令セットアーキテクチャのひとつ、つまり機械語のことです。
-エンコーディングというのは、アセンブリを機械語にして保存することです(一般的にはアセンブルといいます)。
-つまり、アセンブラがしていることを学んで、ついでに実装しちゃおう、というのがこの本の趣旨です。
-アセンブリは、機械語と一対一の関係なので、アセンブラを実装するのはそこまで難しくはありません。</p>
-<p>コンパイラも、最終的にはアセンブリや機械語を生成するので、アセンブラを作っていれば、プログラミング言語を自作するときに使えたりします。</p>
-<p>低レイヤというものは、奥深いもので、それに興味を持つ人も少なからずいます。しかし、最近は、低レイヤプログラミングを実際にやってみる機会が少なくなっているように感じます。この本が、そんな低レイヤの世界を旅するきっかけになってくれれば、それは筆者の望外の喜びです。</p>
-<p>hobo0xcc  | <a href="https://github.com/hobo0xcc">github</a> | <a href="https://twitter.com/hobo0xcc">twitter</a></p>
+                        <a class="header" href="#aフロントエンド" id="aフロントエンド"><h1>フロントエンド</h1></a>
+<p>言語処理系のフロントエンドには、字句解析と構文解析があります。</p>
+<p>字句解析は、文字列をトークン化します。</p>
+<p>構文解析は、トークン列を解析して抽象構文木を作り出します。</p>
+<p>多くの処理系では、抽象構文木の意味を解析してタグ付けをしたりする意味解析も行われますが、ここでは解説しません。</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
+                            <a rel="prev" href="create_assembler.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
 
+                        
+                            <a rel="next" href="lexing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -161,7 +165,15 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
+                    <a href="create_assembler.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
 
+                
+                    <a href="lexing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 
             </nav>
 
