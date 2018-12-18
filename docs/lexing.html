@@ -140,14 +140,17 @@
 <p>字句解析器を作成していきます。</p>
 <p>字句解析にはオートマトンを用います。</p>
 <p>これは説明するより実装したほうが早いと思うので、簡単な字句解析器を以下に示します。</p>
-<pre><code class="language-c:lexer.c">#define TK_MAX 256
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
 
-static char *p = &quot;abc 123 de45fg&quot;;
+#define TK_MAX 256
+
+static char *p;
 static char *token;
 
 int next() {
     int c;
-    char tk[TK_MAX];
+    char *tk = (char *)malloc(sizeof(char) * TK_MAX);
     int tkc = 0;
 
     while (c = *p) {
@@ -162,7 +165,7 @@ int next() {
             return 1;
         } else if ((c &gt;= 'a' &amp;&amp; c &lt;= 'z') || (c &gt;= 'A' &amp;&amp; c &lt;= 'Z')) {
             tk[tkc++] = c;
-            while ((c &gt;= 'a' &amp;&amp; c &lt;= 'z') || (c &gt;= 'A' &amp;&amp; c &lt;= 'Z')) tk[tkc++] = *p++;
+            while ((*p &gt;= 'a' &amp;&amp; *p &lt;= 'z') || (*p &gt;= 'A' &amp;&amp; *p &lt;= 'Z')) tk[tkc++] = *p++;
             tk[tkc++] = '\0';
 
             token = tk;
@@ -170,6 +173,17 @@ int next() {
         }
     }
 
+    return 0;
+}
+
+int main(int argc, char **argv) {
+    if (argc &lt; 2) return 1;
+
+    p = argv[1];
+    while (next()) {
+        printf(&quot;%s\n&quot;, token);
+    }
+    
     return 0;
 }
 </code></pre>

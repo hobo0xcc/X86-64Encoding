@@ -5,15 +5,18 @@
 
 これは説明するより実装したほうが早いと思うので、簡単な字句解析器を以下に示します。
 
-```c:lexer.c
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
 #define TK_MAX 256
 
-static char *p = "abc 123 de45fg";
+static char *p;
 static char *token;
 
 int next() {
 	int c;
-	char tk[TK_MAX];
+	char *tk = (char *)malloc(sizeof(char) * TK_MAX);
 	int tkc = 0;
 
 	while (c = *p) {
@@ -28,7 +31,7 @@ int next() {
 			return 1;
 		} else if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
 			tk[tkc++] = c;
-			while ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) tk[tkc++] = *p++;
+			while ((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z')) tk[tkc++] = *p++;
 			tk[tkc++] = '\0';
 
 			token = tk;
@@ -36,6 +39,17 @@ int next() {
 		}
 	}
 
+	return 0;
+}
+
+int main(int argc, char **argv) {
+	if (argc < 2) return 1;
+
+	p = argv[1];
+	while (next()) {
+		printf("%s\n", token);
+	}
+	
 	return 0;
 }
 ```
