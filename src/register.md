@@ -1,5 +1,4 @@
 # レジスタ
-以下にレジスタの番号を示します。
 
 <table>
 <tr align="center">
@@ -26,7 +25,7 @@
 <tr align="center">
     <th>0.010</th>
     <td>DL</td>
-    <td>CX</td>
+    <td>DX</td>
     <td>EDX</td>
     <td>RDX</td>
 </tr>

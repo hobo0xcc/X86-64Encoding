@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,86 +140,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a概要" id="a概要"><h1>概要</h1></a>
-<p>x86-64の命令は、基本的に以下のような並びになります。
-命令やオペランドによって値が存在しない(0byte)場合があります。</p>
-<ul>
-<li><a href="#legacy-prefix">Legacy prefix</a> (0 - 4byte)</li>
-<li><a href="#rex-prefix">REX prefix</a> (0 - 1byte)</li>
-<li><a href="#opcode">Opcode</a> (1 - 3byte)</li>
-<li><a href="#modrm">ModR/M</a> (0 - 1byte)</li>
-<li><a href="#sib">SIB</a> (0 - 1byte)</li>
-<li><a href="#displacement">Displacement</a> (0 - 1byte)</li>
-<li><a href="#immediate">Immediate</a> (0, 1, 2, 4, 8byte)</li>
-</ul>
-<a class="header" href="#legacy-prefix" id="legacy-prefix"><h1>Legacy prefix</h1></a>
-<p>各命令には、最大4つのプリフィックスをつけることができます。
-4つのグループがあり、1つのグループにつき1つ使うことができます。</p>
-<p>使えるプリフィックスを以下に示します。</p>
-<ul>
-<li>Prefix group 1
-<ul>
-<li>0xF0</li>
-<li>0xF2</li>
-<li>0xF3</li>
-</ul>
-</li>
-<li>Prefix group 2
-<ul>
-<li>0x2E</li>
-<li>0x36</li>
-<li>0x3E</li>
-<li>0x26</li>
-<li>0x64</li>
-<li>0x65</li>
-<li>0x2E</li>
-<li>0x3E</li>
-</ul>
-</li>
-<li>Prefix group 3
-<ul>
-<li>0x66</li>
-</ul>
-</li>
-<li>Prefix group 4
-<ul>
-<li>0x67</li>
-</ul>
-</li>
-</ul>
-<p>それぞれに意味がありますが、よく使うのは0x66と0x67くらいです。</p>
-<a class="header" href="#rex-prefix" id="rex-prefix"><h1>REX prefix</h1></a>
-<p>REX prefixは、64bitのオペランドか、拡張レジスタを使用する場合などにつけられます。</p>
-<p>REX prefixは、最初の4bitが<code>0100</code>で始まり、残りの1bit * 4(4bit)でプリフィックスを表現します。最後の4bitは1bitずつ左からW, R, X, Bと呼ばれます。</p>
-<p>WRXBにはそれぞれ次のような意味があります。</p>
-<table><thead><tr><th align="center"> Field </th><th align="center"> Length </th><th align="center">                                                  Description                                                  </th></tr></thead><tbody>
-<tr><td align="center">   W   </td><td align="center">  1bit  </td><td align="center"> この値が1の場合は64bitのオペランドサイズが使用されます。0の場合はデフォルトのオペランドサイズが使用されます。 </td></tr>
-<tr><td align="center">   R   </td><td align="center">  1bit  </td><td align="center">                拡張レジスタを使用する場合は1にします。0の場合は通常のレジスタが使用されます。                 </td></tr>
-<tr><td align="center">   X   </td><td align="center">  1bit  </td><td align="center">        SIBのbaseフィールドの拡張に使われます。1の場合はbaseで拡張レジスタを使用しての指定ができます。         </td></tr>
-<tr><td align="center">   B   </td><td align="center">  1bit  </td><td align="center">        ModR/Mのr/mフィールドの拡張に使われます。1の場合はr/mで拡張レジスタの使用しての指定ができます。        </td></tr>
-</tbody></table>
-<a class="header" href="#opcode" id="opcode"><h1>Opcode</h1></a>
-<p>Opcodeは、命令を識別します。</p>
-<p><a href="https://software.intel.com/en-us/articles/intel-sdm">Intelのマニュアル</a>に命令ごとのOpcodeの一覧が載っているので、これを参考にするか、あるいはndisasmやobjdumpなどの逆アセンブラを参考にするのが良いでしょう。</p>
-<a class="header" href="#modrm" id="modrm"><h1>ModR/M</h1></a>
-<p>ModR/MはMode register / memoryの略で、レジスタとメモリの形式を指定します。</p>
-<p>レジスタとメモリの形式というのは、例えば:</p>
-<pre><code class="language-x86asm">mov  [eax+1], 10
-</code></pre>
-<p>このコードは、eaxに1を足したアドレスに10をムーブします。</p>
-<pre><code class="language-x86asm">mov eax, 10
-</code></pre>
-<p>このコードはeaxに10をムーブします。</p>
-<p>これらのような2つのコードのレジスタやメモリアドレスの形式を指定するのがModR/Mの役割です。</p>
-<p>ModR/Mには3つのフィールドがあります。
-以下にその3つのフィールドとその説明を示します。</p>
-<table><thead><tr><th> Field </th><th> Length </th><th>                                      Description                                      </th></tr></thead><tbody>
-<tr><td> Mod   </td><td> 2bit   </td><td> メモリアドレスの形式を指定します。                                                    </td></tr>
-<tr><td> Reg   </td><td> 3bit   </td><td> 2つのオペランドがどちらも直接、または間接的にレジスタを使用している場合に使用します。 </td></tr>
-<tr><td> R/M   </td><td> 3bit   </td><td> レジスタオペランドを指定します。これはメモリアドレスの形式に影響します。              </td></tr>
-</tbody></table>
-<p>レジスタの指定に使う3bitの番号は、<a href="./register.html">レジスタ</a>を参照してください。</p>
-<p>ModR/Mで指定できるメモリアドレスの形式を以下に示します。</p>
+                        <a class="header" href="#概要" id="概要"><h1>概要</h1></a>
+<!--
 <table>
 <tr align="center">
     <thead>
@@ -272,15 +198,8 @@
     <td colspan=16>R/M</td>
 </tr>
 </table>
-<a class="header" href="#sib" id="sib"><h1>SIB</h1></a>
-<p>SIBは、Scale Index Baseの略で、メモリアドレスの形式を更に詳しく指定できます。
-SIBには3つフィールドがあります。以下にそれらを示します。</p>
-<table><thead><tr><th> Field </th><th> Length </th><th>                                Description                                 </th></tr></thead><tbody>
-<tr><td> Scale </td><td> 2bit   </td><td> Indexの倍率が示されます。 <code>00</code>で1, <code>01</code>で2, <code>10</code>で4, <code>11</code>で8倍になります。 </td></tr>
-<tr><td> Index </td><td> 3bit   </td><td> Indexのレジスタを指定します。この値はメモリアドレスの形式に影響します。    </td></tr>
-<tr><td> Base  </td><td> 3bit   </td><td> Baseのレジスタを指定します。この値はメモリアドレスの形式に影響します。     </td></tr>
-</tbody></table>
-<p>メモリアドレスの形式の表は以下を参照してください。</p>
+<p>--&gt;</p>
+<!--
 <table>
 <tr align="center">
     <thead>
@@ -399,18 +318,7 @@ SIBには3つフィールドがあります。以下にそれらを示します�
 <tr align="center"><th>1.110<br>R14</th></tr>
 <tr align="center"><th>1.111<br>R15</th></tr>
 </table>
-<a class="header" href="#displacement" id="displacement"><h1>Displacement</h1></a>
-<p>DispはDisplacementの略です。</p>
-<p>Displacementは、メモリアドレスに足される値のことです。</p>
-<pre><code class="language-x86asm">mov  dword [rbp-16], 10
-</code></pre>
-<p>このコードの場合、rbpの右側の-16がDisplacementになります。</p>
-<a class="header" href="#immediate" id="immediate"><h1>Immediate</h1></a>
-<p>ImmはImmediateの略です。</p>
-<p>Immediateはレジスタやメモリに直接演算される値です。</p>
-<pre><code class="language-x86asm">mov  eax, 42
-</code></pre>
-<p>このコードの場合、42がImmediateになります。</p>
+<p>--&gt;</p>
 
                     </main>
 
