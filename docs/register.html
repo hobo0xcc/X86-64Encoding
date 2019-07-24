@@ -3,7 +3,9 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>レジスタ - x86-64Encoding</title>
+        <title>レジスタ_ - x86-64Encoding</title>
+        
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,7 +58,7 @@
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
@@ -75,7 +77,10 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="introduction.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="about_x8664.html"><strong aria-hidden="true">2.</strong> x86-64について</a></li><li><ol class="section"><li><a href="overview.html"><strong aria-hidden="true">2.1.</strong> 概要</a></li><li><a href="register.html" class="active"><strong aria-hidden="true">2.2.</strong> レジスタ</a></li><li><a href="hand_assemble.html"><strong aria-hidden="true">2.3.</strong> ハンドアセンブル</a></li></ol></li><li><a href="create_assembler.html"><strong aria-hidden="true">3.</strong> アセンブラを作る</a></li><li><ol class="section"><li><a href="front_end.html"><strong aria-hidden="true">3.1.</strong> フロントエンド</a></li><li><ol class="section"><li><a href="lexing.html"><strong aria-hidden="true">3.1.1.</strong> 字句解析</a></li><li><a href="parsing.html"><strong aria-hidden="true">3.1.2.</strong> 構文解析</a></li></ol></li></ol></li><li><a href="reference.html"><strong aria-hidden="true">4.</strong> 参考資料</a></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li><a href="introduction.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="register.html" class="active"><strong aria-hidden="true">2.</strong> レジスタ_</a></li><li><a href="reference.html"><strong aria-hidden="true">3.</strong> 参考資料</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -105,7 +110,7 @@
                             
                         </div>
 
-                        <h1 class="menu-title">x86-64Encoding</h1> 
+                        <h1 class="menu-title">x86-64Encoding</h1>
 
                         <div class="right-buttons">
                             <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -140,7 +145,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#レジスタ" id="レジスタ"><h1>レジスタ</h1></a>
+                        <h1><a class="header" href="#レジスタ" id="レジスタ">レジスタ</a></h1>
 <table>
 <tr align="center">
     <th colspan=1></th>
@@ -179,28 +184,28 @@
 </tr>
 <tr align="center">
     <th>0.100</th>
-    <td>AH</td>
+    <td>SPL</td>
     <td>SP</td>
     <td>ESP</td>
     <td>RSP</td>
 </tr>
 <tr align="center">
     <th>0.101</th>
-    <td>CH</td>
+    <td>BPL</td>
     <td>BP</td>
     <td>EBP</td>
     <td>RBP</td>
 </tr>
 <tr align="center">
     <th>0.110</th>
-    <td>DH</td>
+    <td>SIL</td>
     <td>SI</td>
     <td>ESI</td>
     <td>RSI</td>
 </tr>
 <tr align="center">
     <th>0.111</th>
-    <td>BH</td>
+    <td>DIL</td>
     <td>DI</td>
     <td>EDI</td>
     <td>RDI</td>
@@ -268,13 +273,13 @@
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="overview.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="hand_assemble.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="reference.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -286,13 +291,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="overview.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="hand_assemble.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="reference.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

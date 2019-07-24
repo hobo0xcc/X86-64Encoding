@@ -4,6 +4,10 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>x86-64Encoding</title>
+        
+        <meta name="robots" content="noindex" />
+        
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,7 +60,7 @@
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
@@ -75,7 +79,10 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="introduction.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="about_x8664.html"><strong aria-hidden="true">2.</strong> x86-64について</a></li><li><ol class="section"><li><a href="overview.html"><strong aria-hidden="true">2.1.</strong> 概要</a></li><li><a href="register.html"><strong aria-hidden="true">2.2.</strong> レジスタ</a></li><li><a href="hand_assemble.html"><strong aria-hidden="true">2.3.</strong> ハンドアセンブル</a></li></ol></li><li><a href="create_assembler.html"><strong aria-hidden="true">3.</strong> アセンブラを作る</a></li><li><ol class="section"><li><a href="front_end.html"><strong aria-hidden="true">3.1.</strong> フロントエンド</a></li><li><ol class="section"><li><a href="lexing.html"><strong aria-hidden="true">3.1.1.</strong> 字句解析</a></li><li><a href="parsing.html"><strong aria-hidden="true">3.1.2.</strong> 構文解析</a></li></ol></li></ol></li><li><a href="reference.html"><strong aria-hidden="true">4.</strong> 参考資料</a></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li><a href="introduction.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="register.html"><strong aria-hidden="true">2.</strong> レジスタ_</a></li><li><a href="reference.html"><strong aria-hidden="true">3.</strong> 参考資料</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -105,7 +112,7 @@
                             
                         </div>
 
-                        <h1 class="menu-title">x86-64Encoding</h1> 
+                        <h1 class="menu-title">x86-64Encoding</h1>
 
                         <div class="right-buttons">
                             <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -140,192 +147,11 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#はじめに" id="はじめに"><h1>はじめに</h1></a>
-<p>このサイトは、x86-64のエンコーディングに関する情報や、バイナリレベルのプログラミングに関するテクニックをまとめたものです。</p>
-<p>筆者が学んだことをまとめたり、様々なソフトウェアを自作する記事などを書いたりもします。</p>
-<p>ミス、間違いなども多々あると思いますので、それらを見つけた場合は、このサイトの<a href="https://github.com/hobo0xcc/X86-64Encoding">githubページ</a>にてissueなど投げていただけると助かります。</p>
+                        <h1><a class="header" href="#はじめに" id="はじめに">はじめに</a></h1>
+<p>このサイトでは，x86_64を中心とした低レベルなプログラミングについて書いていきます。</p>
+<p>毎日更新を目指していますが，ずぼらなので数日...いや数週間更新が止まってしまうかもしれないので，先に謝っておきます。すみません。</p>
 <p>hobo0xcc  | <a href="https://github.com/hobo0xcc">github</a> | <a href="https://twitter.com/hobo0xcc">twitter</a></p>
-<a class="header" href="#x86-64について" id="x86-64について"><h1>x86-64について</h1></a>
-<a class="header" href="#概要" id="概要"><h1>概要</h1></a>
-<!--
-<table>
-<tr align="center">
-    <thead>
-        <th colspan=1>addr</th>
-        <th colspan=16>(REX.B).R/M</th>
-    </thead>
-</tr>
-<tr align="center">
-    <th colspan=1>Mod</th>
-    <th>0.000<br>AX</th>
-    <th>0.001<br>CX</th>
-    <th>0.010<br>DX</th>
-    <th>0.011<br>BX</th>
-    <th>0.100<br>SP</th>
-    <th>0.101<br>BP</th>
-    <th>0.110<br>SI</th>
-    <th>0.111<br>DI</th>
-    <th>1.000<br>R8</th>
-    <th>1.001<br>R9</th>
-    <th>1.010<br>R10</th>
-    <th>1.011<br>R11</th>
-    <th>1.100<br>R12</th>
-    <th>1.101<br>R13</th>
-    <th>1.110<br>R14</th>
-    <th>1.111<br>R15</th>
-</tr>
-<tr align="center">
-    <th colspan=1>00</th>
-    <td colspan=4>[R/M]</td>
-    <td colspan=1>[SIB]</td>
-    <td colspan=1>[RIP/EIP+disp32]</td>
-    <td colspan=6>[R/M]</td>
-    <td colspan=1>[SIB]</td>
-    <td colspan=1>[RIP/EIP+disp32]</td>
-    <td colspan=2>[R/M]</td>
-</tr>
-<tr align="center">
-    <th colspan=1>01</th>
-    <td colspan=4>[R/M+disp8]</td>
-    <td colspan=1>[SIB+disp8]</td>
-    <td colspan=7>[R/M+disp8]</td>
-    <td colspan=1>[SIB+disp8]</td>
-    <td colspan=3>[R/M+disp8]</td>
-<tr align="center">
-    <th colspan=1>10</th>
-    <td colspan=4>[R/M+disp32]</td>
-    <td colspan=1>[SIB+disp32]</td>
-    <td colspan=7>[R/M+disp32]</td>
-    <td colspan=1>[SIB+disp32]</td>
-    <td colspan=3>[R/M+disp32]</td>
-</tr>
-<tr align="center">
-    <th colspan=1>11</th>
-    <td colspan=16>R/M</td>
-</tr>
-</table>
-<p>--&gt;</p>
-<!--
-<table>
-<tr align="center">
-    <thead>
-        <th colspan=2></th>
-        <th colspan=16>(REX.B).Base</th>
-    </thead>
-</tr>
-<tr align="center">
-    <th colspan=1>Mod</th>
-    <th colspan=1>(REX.X).Index</th>
-    <th>0.000<br>AX</th>
-    <th>0.001<br>CX</th>
-    <th>0.010<br>DX</th>
-    <th>0.011<br>BX</th>
-    <th>0.100<br>SP</th>
-    <th>0.101<br>BP</th>
-    <th>0.110<br>SI</th>
-    <th>0.111<br>DI</th>
-    <th>1.000<br>R8</th>
-    <th>1.001<br>R9</th>
-    <th>1.010<br>R10</th>
-    <th>1.011<br>R11</th>
-    <th>1.100<br>R12</th>
-    <th>1.101<br>R13</th>
-    <th>1.110<br>R14</th>
-    <th>1.111<br>R15</th>
-</tr>
-<tr align="center">
-    <th rowspan=16 colspan=1>00</th>
-    <th>0.000<br>AX</th>
-    <td rowspan=4 colspan=5>[Base+(Index*Scale)]</td>
-    <td rowspan=4 colspan=1>[(Index*Scale)+disp32]
-    <td rowspan=4 colspan=7>[Base+(Index*Scale)]</td>
-    <td rowspan=4 colspan=1>[(Index*Scale)+disp32]</td>
-    <td rowspan=4 colspan=2>[Base+(Index*Scale)]</td>
-</tr>
-<tr align="center"><th>0.001<br>CX</th></tr>
-<tr align="center"><th>0.010<br>DX</th></tr>
-<tr align="center"><th>0.011<br>BX</th></tr>
-<tr align="center">
-    <th>0.100<br>SP</th>
-    <td colspan=5>[Base]</td>
-    <td colspan=1>[Disp32]</td>
-    <td colspan=7>[Base]</td>
-    <td>[Disp32]</td>
-    <td colspan=2>[Base]</td>
-</tr>
-<tr align="center">
-    <th>0.101<br>BP</th>
-    <td rowspan=11 colspan=5>[Base+(Index*Scale)]</td>
-    <td rowspan=11 colspan=1>[(Index*Scale) + Disp32]</td>
-    <td rowspan=11 colspan=7>[Base+(Index*Scale)]</td>
-    <td rowspan=11 colspan=1>[(Index*Scale)+Disp32]</td>
-    <td rowspan=11 colspan=2>[Base+(Index*Scale)]</td>
-</tr>
-<tr align="center"><th>0.110<br>SI</th></tr>
-<tr align="center"><th>0.111<br>DI</th></tr>
-<tr align="center"><th>1.000<br>R8</th></tr>
-<tr align="center"><th>1.001<br>R9</th></tr>
-<tr align="center"><th>1.010<br>R10</th></tr>
-<tr align="center"><th>1.011<br>R11</th></tr>
-<tr align="center"><th>1.100<br>R12</th></tr>
-<tr align="center"><th>1.101<br>R13</th></tr>
-<tr align="center"><th>1.110<br>R14</th></tr>
-<tr align="center"><th>1.111<br>R15</th></tr>
-<tr align="center">
-    <th rowspan=16 colspan=1>01</th>
-    <th>0.000<br>AX</th>
-    <td rowspan=4 colspan=16>[Base+(Index*Scale)+Disp8]</td>
-</tr>
-<tr align="center"><th>0.001<br>CX</th></tr>
-<tr align="center"><th>0.010<br>DX</th></tr>
-<tr align="center"><th>0.011<br>BX</th></tr>
-<tr align="center">
-    <th>0.100<br>SP</th>
-    <td colspan=16>[Base+Disp8]</th>
-</tr>
-<tr align="center">
-    <th>0.101<br>BP</th>
-    <td rowspan=11 colspan=16>[Base+(Index*Scale)+Disp8]</td>
-</tr>
-<tr align="center"><th>0.110<br>SI</th></tr>
-<tr align="center"><th>0.111<br>DI</th></tr>
-<tr align="center"><th>1.000<br>R8</th></tr>
-<tr align="center"><th>1.001<br>R9</th></tr>
-<tr align="center"><th>1.010<br>R10</th></tr>
-<tr align="center"><th>1.011<br>R11</th></tr>
-<tr align="center"><th>1.100<br>R12</th></tr>
-<tr align="center"><th>1.101<br>R13</th></tr>
-<tr align="center"><th>1.110<br>R14</th></tr>
-<tr align="center"><th>1.111<br>R15</th></tr>
-<tr align="center">
-    <th rowspan=16 colspan=1>10</th>
-    <th>0.000<br>AX</th>
-    <td rowspan=4 colspan=16>[Base+(Index*Scale)+Disp32]</td>
-</tr>
-<tr align="center"><th>0.001<br>CX</th></tr>
-<tr align="center"><th>0.010<br>DX</th></tr>
-<tr align="center"><th>0.011<br>BX</th></tr>
-<tr align="center">
-    <th>0.100<br>SP</th>
-    <td colspan=16>[Base+Disp32]</td>
-</tr>
-<tr align="center">
-    <th>0.101<br>BP</th>
-    <td rowspan=11 colspan=16>[Base+(Index*Scale)+Disp32]</td>
-</tr>
-<tr align="center"><th>0.110<br>SI</th></tr>
-<tr align="center"><th>0.111<br>DI</th></tr>
-<tr align="center"><th>1.000<br>R8</th></tr>
-<tr align="center"><th>1.001<br>R9</th></tr>
-<tr align="center"><th>1.010<br>R10</th></tr>
-<tr align="center"><th>1.011<br>R11</th></tr>
-<tr align="center"><th>1.100<br>R12</th></tr>
-<tr align="center"><th>1.101<br>R13</th></tr>
-<tr align="center"><th>1.110<br>R14</th></tr>
-<tr align="center"><th>1.111<br>R15</th></tr>
-</table>
-<p>--&gt;</p>
-<a class="header" href="#レジスタ" id="レジスタ"><h1>レジスタ</h1></a>
+<h1><a class="header" href="#レジスタ" id="レジスタ">レジスタ</a></h1>
 <table>
 <tr align="center">
     <th colspan=1></th>
@@ -364,28 +190,28 @@
 </tr>
 <tr align="center">
     <th>0.100</th>
-    <td>AH</td>
+    <td>SPL</td>
     <td>SP</td>
     <td>ESP</td>
     <td>RSP</td>
 </tr>
 <tr align="center">
     <th>0.101</th>
-    <td>CH</td>
+    <td>BPL</td>
     <td>BP</td>
     <td>EBP</td>
     <td>RBP</td>
 </tr>
 <tr align="center">
     <th>0.110</th>
-    <td>DH</td>
+    <td>SIL</td>
     <td>SI</td>
     <td>ESI</td>
     <td>RSI</td>
 </tr>
 <tr align="center">
     <th>0.111</th>
-    <td>BH</td>
+    <td>DIL</td>
     <td>DI</td>
     <td>EDI</td>
     <td>RDI</td>
@@ -447,15 +273,11 @@
     <td>R15</td>
 </tr>
 </table>
-<a class="header" href="#ハンドアセンブル" id="ハンドアセンブル"><h1>ハンドアセンブル</h1></a>
-<a class="header" href="#アセンブラを作る" id="アセンブラを作る"><h1>アセンブラを作る</h1></a>
-<a class="header" href="#フロントエンド" id="フロントエンド"><h1>フロントエンド</h1></a>
-<a class="header" href="#字句解析" id="字句解析"><h1>字句解析</h1></a>
-<a class="header" href="#構文解析" id="構文解析"><h1>構文解析</h1></a>
-<a class="header" href="#参考資料" id="参考資料"><h1>参考資料</h1></a>
+<h1><a class="header" href="#参考資料" id="参考資料">参考資料</a></h1>
 <ul>
 <li><a href="https://wiki.osdev.org/X86-64_Instruction_Encoding">X86-64 Instruction Encoding - OSDev</a></li>
 <li><a href="https://software.intel.com/en-us/articles/intel-sdm">Intel Software Developer's Manual - Intel</a></li>
+<li><a href="%5Bhttps://developer.amd.com/resources/developer-guides-manuals/%5D(https://developer.amd.com/resources/developer-guides-manuals/)">Developer Guides, Manuals &amp; ISA Documents - AMD</a></li>
 </ul>
 
                     </main>

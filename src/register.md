@@ -38,28 +38,28 @@
 </tr>
 <tr align="center">
     <th>0.100</th>
-    <td>AH</td>
+    <td>SPL</td>
     <td>SP</td>
     <td>ESP</td>
     <td>RSP</td>
 </tr>
 <tr align="center">
     <th>0.101</th>
-    <td>CH</td>
+    <td>BPL</td>
     <td>BP</td>
     <td>EBP</td>
     <td>RBP</td>
 </tr>
 <tr align="center">
     <th>0.110</th>
-    <td>DH</td>
+    <td>SIL</td>
     <td>SI</td>
     <td>ESI</td>
     <td>RSI</td>
 </tr>
 <tr align="center">
     <th>0.111</th>
-    <td>BH</td>
+    <td>DIL</td>
     <td>DI</td>
     <td>EDI</td>
     <td>RDI</td>
