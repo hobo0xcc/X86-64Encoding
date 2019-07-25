@@ -80,7 +80,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li><a href="introduction.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="register.html"><strong aria-hidden="true">2.</strong> レジスタ</a></li><li><a href="reference.html"><strong aria-hidden="true">3.</strong> 参考資料</a></li></ol>
+                <ol class="chapter"><li><a href="introduction.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="register.html"><strong aria-hidden="true">2.</strong> レジスタ</a></li><li><a href="intel_sdm.html"><strong aria-hidden="true">3.</strong> Intel SDMのよみかた</a></li><li><a href="reference.html"><strong aria-hidden="true">4.</strong> 参考資料</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -273,6 +273,50 @@
     <td>R15</td>
 </tr>
 </table>
+<h1><a class="header" href="#intel-sdmのよみかた" id="intel-sdmのよみかた">Intel SDMのよみかた</a></h1>
+<hr />
+<p><em>Intel® 64 and IA-32 Architectures Software Developer Manuals</em> (以下，Intel SDMと呼ぶ) という，Intelによる<strong>Intel 64</strong>の公式マニュアルみたいなものがあります。この記事では，そのIntel SDMの読み方について書いていきます。</p>
+<h2><a class="header" href="#ダウンロード" id="ダウンロード">ダウンロード</a></h2>
+<p><a href="https://software.intel.com/en-us/articles/intel-sdm">https://software.intel.com/en-us/articles/intel-sdm</a> からダウンロードできます。Intel SDMには4つの章があり，一つ目がIntel 64アーキテクチャの概要的な紹介，二つ目が命令セットの詳しい情報，三つ目がIntel 64上でOSを開発する際に必要となる情報，四つ目がMSR (model-specific registers) に関する情報，というような具合に書かれています。</p>
+<p>この記事では主にIntel SDMの二つ目の章の読み方について書きます。</p>
+<h2><a class="header" href="#命令表の読み方" id="命令表の読み方">命令表の読み方</a></h2>
+<p>Intel SDMのVolume 2: Instruction Set Referenceの 3.2, 4.3, 5.2 にそれぞれ，AからL，MからU，VからZの命令の表が書かれています。</p>
+<p>それらの命令表には，以下のような情報が書かれています。</p>
+<table><thead><tr><th align="left">Opcode</th><th>Instruction</th><th>Op/En</th><th>64-Bit Mode</th><th align="left">Compat/Leg Mode</th><th>Description</th></tr></thead><tbody>
+<tr><td align="left">88 /r</td><td>MOV r/m8,r8</td><td>MR</td><td>Valid</td><td align="left">Valid</td><td>Move r8 to r/m8.</td></tr>
+<tr><td align="left">REX.W + B8+ rd io</td><td>MOV r64, imm64</td><td>OI</td><td>Valid</td><td align="left">N.E.</td><td>Move imm8 to r8</td></tr>
+<tr><td align="left">C7 /0 id</td><td>MOV r/m32, imm32</td><td>MI</td><td>Valid</td><td align="left">Valid</td><td>Move imm32 to r/m32.</td></tr>
+</tbody></table>
+<p>上記の表はMov命令の表の抜粋です。</p>
+<h3><a class="header" href="#opcodeの記号" id="opcodeの記号">Opcodeの記号</a></h3>
+<p>Opcodeの記号とその説明を以下に書きます。</p>
+<ul>
+<li>
+<p>REX.W</p>
+<p>64ビットのレジスタを使用する。</p>
+</li>
+<li>
+<p>/0-7</p>
+<p>ModR/Mのregフィールドをオペコードの拡張に使用する。r/mフィールドのみをオペランドに使用する。</p>
+</li>
+<li>
+<p>/r</p>
+<p>ModR/Mのr/mフィールドとregフィールドの両方を使用する。</p>
+</li>
+<li>
+<p>cb, cw, cd, cp, co, ct</p>
+<p>オペコードの後に，1バイト (cb), 2バイト (cw), 4バイト (cd), 6バイト (cp), 8バイト (co), 10バイト (ct) が続く。</p>
+</li>
+<li>
+<p>ib, iw, id, io</p>
+<p>オペコード，ModR/M，SIBのいずれかの後に，1バイト (ib), 2バイト (iw), 4バイト (id) or 8バイト (io) が続く。これらは即値として使用される。</p>
+</li>
+<li>
+<p>+rb, +rw, +rd, +ro</p>
+<p>オペコードに加算される0から7までのレジスタコード。</p>
+</li>
+</ul>
+<p>(書きかけ)</p>
 <h1><a class="header" href="#参考資料" id="参考資料">参考資料</a></h1>
 <ul>
 <li><a href="https://wiki.osdev.org/X86-64_Instruction_Encoding">X86-64 Instruction Encoding - OSDev</a></li>

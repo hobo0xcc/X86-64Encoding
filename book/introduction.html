@@ -78,7 +78,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li><a href="introduction.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="register.html"><strong aria-hidden="true">2.</strong> レジスタ</a></li><li><a href="intel_sdm.html"><strong aria-hidden="true">3.</strong> Intel SDMのよみかた</a></li><li><a href="reference.html"><strong aria-hidden="true">4.</strong> 参考資料</a></li></ol>
+                <ol class="chapter"><li><a href="introduction.html" class="active"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="register.html"><strong aria-hidden="true">2.</strong> レジスタ</a></li><li><a href="intel_sdm.html"><strong aria-hidden="true">3.</strong> Intel SDMのよみかた</a></li><li><a href="reference.html"><strong aria-hidden="true">4.</strong> 参考資料</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -157,6 +157,10 @@
                         
 
                         
+                            <a rel="next" href="register.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -167,10 +171,29 @@
                 
 
                 
+                    <a href="register.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
             </nav>
 
         </div>
 
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
         
 
         

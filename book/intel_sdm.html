@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>はじめに - x86-64Encoding</title>
+        <title>Intel SDMのよみかた - x86-64Encoding</title>
         
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -78,7 +78,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li><a href="introduction.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="register.html"><strong aria-hidden="true">2.</strong> レジスタ</a></li><li><a href="intel_sdm.html"><strong aria-hidden="true">3.</strong> Intel SDMのよみかた</a></li><li><a href="reference.html"><strong aria-hidden="true">4.</strong> 参考資料</a></li></ol>
+                <ol class="chapter"><li><a href="introduction.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="register.html"><strong aria-hidden="true">2.</strong> レジスタ</a></li><li><a href="intel_sdm.html" class="active"><strong aria-hidden="true">3.</strong> Intel SDMのよみかた</a></li><li><a href="reference.html"><strong aria-hidden="true">4.</strong> 参考資料</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -145,17 +145,22 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#はじめに" id="はじめに">はじめに</a></h1>
-<p>このサイトでは，x86_64を中心とした低レベルなプログラミングについて書いていきます。</p>
-<p>毎日更新を目指していますが，ずぼらなので数日...いや数週間更新が止まってしまうかもしれないので，先に謝っておきます。すみません。</p>
-<p>hobo0xcc  | <a href="https://github.com/hobo0xcc">github</a> | <a href="https://twitter.com/hobo0xcc">twitter</a></p>
+                        <h1><a class="header" href="#intel-sdmのよみかた" id="intel-sdmのよみかた">Intel SDMのよみかた</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
+                            <a rel="prev" href="register.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
 
+                        
+                            <a rel="next" href="reference.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -165,12 +170,35 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
+                    <a href="register.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
 
+                
+                    <a href="reference.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 
             </nav>
 
         </div>
 
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
         
 
         
